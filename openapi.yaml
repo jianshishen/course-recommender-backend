@@ -1,0 +1,141 @@
+openapi: 3.0.0
+info:
+  title: Course Recommender API Docs
+  Description: Course Recommender API Docs
+  version: 1.0.0
+paths:
+  /authenticate:
+    post:
+      summary: Validate user's account information.
+      description: Check whether the information is correct. If so, return a JWT.
+      tags:
+        - Account
+      parameters:
+        - name: username
+          description: username of an account.
+          schema:
+            type: string
+        - name: password
+          description: password of an account.
+          schema:
+            type: string
+      responses:
+        "200":
+          description: Approved
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  id: 1
+                  level: ug
+                  token: ASDFGGHJKL123
+        "400":
+          description: Incorrect username or password
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  message: Incorrect username or password!
+  /register:
+    post:
+      summary: Register a new account.
+      description: Return if the registration is successful
+      tags:
+        - Account
+      parameters:
+        - name: username
+          description: username of an account.
+          schema:
+            type: string
+        - name: password
+          description: password of an account.
+          schema:
+            type: string
+        - name: level
+          description: level of a student.
+          schema:
+            type: string
+      responses:
+        "200":
+          description: Approved. Redirect the user to login page.
+        "400":
+          description: Duplicated username.
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  message: The username exists!
+  /courses/{id}:
+    get:
+      summary: Returns courses id.
+      description: Return chosen courses id of a student.
+      tags:
+        - Units of Study
+      parameters:
+        - name: id
+          in: path
+          description: id of a student.
+          schema:
+            type: string
+      responses:
+        "200":
+          description: Course id
+          content:
+            application/json:
+              schema:
+                type: object
+                example: "[COMP0000,COMP0001,COMP0002]"
+        "400":
+          description: Something's Wrong!
+  /info/{code}:
+    get:
+      summary: Returns details of a course.
+      description: Return recommendation according to course codes given.
+      tags:
+        - Units of Study
+      parameters:
+        - name: code
+          in: path
+          description: course code.
+          schema:
+            type: string
+      responses:
+        "200":
+          description: Recommendation
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  coursename: Light and Sound
+                  courseid: BADP2003
+                  semester: Semester 1
+                  aosname: Design and Planning
+        "400":
+          description: Something's Wrong!
+  /areainfo/{area}:
+    get:
+      summary: Returns all course codes within an area of study.
+      description: Return course id of the area of study given.
+      tags:
+        - Units of Study
+      parameters:
+        - name: area
+          in: path
+          description: The name of an area of study.
+          schema:
+            type: string
+      responses:
+        "200":
+          description: Recommendation
+          content:
+            application/json:
+              schema:
+                type: object
+                example: "[COMP0000,COMP0001,COMP0002]"
+        "400":
+          description: Something's Wrong!
+# npm i express swagger-ui-express yamljs
