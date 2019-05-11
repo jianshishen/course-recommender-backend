@@ -26,6 +26,7 @@ var knex =
 
 router.post("/authenticate", (req, res, next) => {
   const { username, password } = req.body;
+  const { secret, expiresIn } = config;
   knex
     .select("password", "level")
     .from("student")
@@ -34,7 +35,8 @@ router.post("/authenticate", (req, res, next) => {
       if (results.length !== 0 && results[0].password === password) {
         const token = jwt.sign(
           { id: username, level: results[0].level },
-          config.secret
+          secret,
+          { expiresIn }
         );
         res.json(token);
       } else {

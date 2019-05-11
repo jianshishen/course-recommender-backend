@@ -1,3 +1,4 @@
 {
-  "secret": "COWABUNGA!"
+  "secret": "COWABUNGA!",
+  "expiresIn": "14d"
 }

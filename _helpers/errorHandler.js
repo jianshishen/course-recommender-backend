@@ -1,4 +1,4 @@
-module.exports = errorHandler;
+"use strict";
 function errorHandler(err, req, res, next) {
   if (err.code === "ER_DUP_ENTRY") {
     // duplicated username
@@ -19,3 +19,4 @@ function errorHandler(err, req, res, next) {
   // default to 500 server error
   return res.status(500).json({ message: err.message });
 }
+module.exports = errorHandler;
