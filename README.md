@@ -1,4 +1,6 @@
-# Info
+# Course Recommender Frontend
+
+## Info
 
 Project on progress
 
