@@ -17,11 +17,7 @@ var knex =
       })
     : require("knex")({
         client: "mysql",
-        connection: {
-          user: "a",
-          password: "123456",
-          database: "cs39"
-        }
+        connection: config.connection_dev
       });
 
 router.post("/authenticate", (req, res, next) => {
@@ -52,7 +48,7 @@ router.post("/register", (req, res, next) => {
   const { username, password, level } = req.body;
   knex("student")
     .insert({ studentid: username, password, level })
-    .then(() => res.send({}))
+    // .then(() => res.send({}))
     .catch(e => {
       next(e);
     });
@@ -131,6 +127,36 @@ router.get("/areainfo/:area", (req, res, next) => {
     })
     .catch(e => {
       next(e);
+    });
+});
+
+router.delete("/courses/:id/:code", (req, res, next) => {
+  const { id, code } = req.params;
+  knex("studentcourses")
+    .where({ studentid: id, courseid: code })
+    .del()
+    .catch(e => {
+      next(e);
+    });
+});
+
+router.put("/courses/:id/:code", (req, res, next) => {
+  const { id, code } = req.params;
+  knex
+    .select("level")
+    .from("student")
+    .where("studentid", id)
+    .then(result => {
+      knex("studentcourses")
+        .insert({
+          studentid: id,
+          courseid: code,
+          level: result[0].level,
+          Rating: Math.floor(Math.random() * 6)
+        })
+        .catch(e => {
+          next(e);
+        });
     });
 });
 

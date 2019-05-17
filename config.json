@@ -1,4 +1,9 @@
 {
   "secret": "COWABUNGA!",
-  "expiresIn": "14d"
+  "expiresIn": "14d",
+  "connection_dev": {
+    "user": "root",
+    "password": "1",
+    "database": "CourseRecommender"
+  }
 }
