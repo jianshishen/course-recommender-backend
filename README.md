@@ -18,5 +18,4 @@ Google Cloud Platform:
 
 0. Open `app.yaml`. Input the information of database at `env_variables` and `beta_settings`
 1. Configure Cloud SDK.
-1. Run `npm run build` to build.
 1. Run `gcloud app deploy` to deploy the build to Google Cloud Platform. Use `-v` to specify version.

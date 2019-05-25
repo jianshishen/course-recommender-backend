@@ -138,4 +138,26 @@ paths:
                 example: "[COMP0000,COMP0001,COMP0002]"
         "400":
           description: Something's Wrong!
+  /courses/{id}/{code}:
+    delete:
+      summary: Delete a course.
+      description: Delete a course from the current list of courses of a student.
+      tags:
+        - Units of Study
+      parameters:
+        - name: id
+          in: path
+          description: The student id.
+          schema:
+            type: string
+        - name: code
+          in: path
+          description: The course id.
+          schema:
+            type: string
+      responses:
+        "200":
+          description: Success
+        "400":
+          description: Failure
 # npm i express swagger-ui-express yamljs
